@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.multipart.maxSize" value="20480000" />
+	<constant name="struts.action.extension" value=","></constant>
+
+	<package name="default" namespace="/" extends="json-default">
+		<interceptors>
+
+			<interceptor-stack name="baseStack">
+				<interceptor-ref name="defaultStack" />
+				<!-- <interceptor-ref name="visit" /> -->
+			</interceptor-stack>
+
+			<interceptor-stack name="tempStack">
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+
+			<interceptor-stack name="fullStack">
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="baseStack" />
+		
+	</package>
+
+	<package name="default-interceptor" extends="default">
+		<default-interceptor-ref name="fullStack" />
+	</package>
+
+	<package name="visit-interceptor" extends="default">
+		<default-interceptor-ref name="baseStack" />
+	</package>
+
+	<include file="struts-config/*/*.xml" />
+
+</struts>
